@@ -1,0 +1,4 @@
+__test_server__
+.idea
+.env
+poetry.lock

@@ -1,0 +1,16 @@
+services:
+  some_api_app:
+    build:
+      context: ./__test_server__
+
+  api_tests:
+    depends_on:
+      - some_api_app
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: make pytest_api_tests
+    volumes:
+      - .:/opt/app
+    environment:
+      - API__BASE_URL=http://some_api_app
