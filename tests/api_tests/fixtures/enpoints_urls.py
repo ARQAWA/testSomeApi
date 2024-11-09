@@ -1,11 +1,11 @@
 import pytest
 
 
-@pytest.fixture
-def random_string_create_url():
-    return "/api/v1/random_string"
+class ApiUrls:
+    random_string_create = "/api/v1/random_string"
+    random_string_get = "/api/v1/random_string/{request_id}"
 
 
-@pytest.fixture
-def random_string_get_url():
-    return "/api/v1/random_string/{request_id}"
+@pytest.fixture(scope="session")
+def urls():
+    return ApiUrls()

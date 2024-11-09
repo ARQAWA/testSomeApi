@@ -1,22 +1,20 @@
 import pytest
-from httpx import Response
 from pydantic import (
     BaseModel,
     ConfigDict,
 )
 
+from tests.api_tests.fixtures.test_client import TestResponse
+
 
 class BaseResponseModel(BaseModel):
     @classmethod
-    def from_response(cls, response: Response) -> "BaseResponseModel":
+    def from_response(cls, response: TestResponse) -> "BaseResponseModel":
         # noinspection PyBroadException
         try:
             return cls.model_validate_json(response.content)
         except Exception:
-            pytest.fail(
-                f"Failed to validate response by {cls.__name__} "
-                f"for {response.request.method} {response.request.url}"
-            )
+            pytest.fail(f"Ошибка валидации ответа от {response.string_path} моделью {cls.__name__}")
 
     model_config = ConfigDict(
         frozen=True,
