@@ -2,6 +2,8 @@ services:
   some_api_app:
     build:
       context: ./__test_server__
+    ports:
+      - 127.0.0.1:10080:80
 
   api_tests:
     depends_on:
